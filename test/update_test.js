@@ -51,4 +51,14 @@ describe('Updating records', () => {
             User.findByIdAndUpdate(joe._id, { name: 'Alex'} )
         );
     });
+
+    it('Update userCont by incrementing 1', () => {
+        User.update({ name: 'Joe'}, {$inc: { postCount: 1}})
+            .then(() => {
+                User.findOne({name: 'Joe'});
+            })
+            .then((user) => {
+                assert(user.postCount === 1);
+            });
+    });
 });
